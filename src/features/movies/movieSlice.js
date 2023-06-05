@@ -35,21 +35,35 @@ export const fetchAsyncShows = createAsyncThunk(
   }
 );
 
+export const fetchAsyncMovieOrShowDetail = createAsyncThunk(
+  "movie/fetchAsyncMovieOrShowDetail",
+  async (id) => {
+    const response = await MovieApi.get(
+      `?apiKey=${APIKey}&i=${id}&Plot=full`
+    );
+    //    .catch((err) => {
+    //     console.log("Err:", err);
+    //   });
+    // console.log("The response from API", response);
+    // dispatch(addMovies(response.data));
+    return response.data;
+  }
+);
+
 const initialState = {
   movies: {},
-  shows:{}
+  shows:{},
+  selectedMovieOrShow:{}
 };
 
 const movieSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    addMovies: (state, { payload }) => {
-      state.movies = payload;
-    },
-    addShows: (state, { payload }) => {
-      state.shows = payload;
-    },
+    removeSelectedMovieOrShow:(state)=>{
+      state.selectedMovieOrShow={};
+    }
+
   },
   extraReducers: {
     [fetchAsyncMovies.pending]: () => {
@@ -66,10 +80,15 @@ const movieSlice = createSlice({
       console.log("Fulfilled");
       return { ...state, shows: payload };
     },
+    [fetchAsyncMovieOrShowDetail.fulfilled]: (state, { payload }) => {
+      console.log("Fulfilled");
+      return { ...state, selectedMovieOrShow: payload };
+    },
   },
 });
 
-export const { addMovies } = movieSlice.actions;
+export const { removeSelectedMovieOrShow } = movieSlice.actions;
 export const getAllMovies = (state) => state.movies.movies;
 export const getAllShows= (state)=> state.movies.shows;
+export const addSelectedMovieOrShow= (state)=> state.movies.selectedMovieOrShow;
 export default movieSlice.reducer;
