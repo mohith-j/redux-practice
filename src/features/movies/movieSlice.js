@@ -19,8 +19,25 @@ export const fetchAsyncMovies = createAsyncThunk(
   }
 );
 
+export const fetchAsyncShows = createAsyncThunk(
+  "movie/fetchAsyncShows",
+  async () => {
+    const seriesText = "Friends";
+    const response = await MovieApi.get(
+      `?apiKey=${APIKey}&s=${seriesText}&type=series`
+    );
+    //    .catch((err) => {
+    //     console.log("Err:", err);
+    //   });
+    // console.log("The response from API", response);
+    // dispatch(addMovies(response.data));
+    return response.data;
+  }
+);
+
 const initialState = {
   movies: {},
+  shows:{}
 };
 
 const movieSlice = createSlice({
@@ -29,6 +46,9 @@ const movieSlice = createSlice({
   reducers: {
     addMovies: (state, { payload }) => {
       state.movies = payload;
+    },
+    addShows: (state, { payload }) => {
+      state.shows = payload;
     },
   },
   extraReducers: {
@@ -42,9 +62,14 @@ const movieSlice = createSlice({
     [fetchAsyncMovies.rejected]: () => {
       console.log("Rejected");
     },
+    [fetchAsyncShows.fulfilled]: (state, { payload }) => {
+      console.log("Fulfilled");
+      return { ...state, shows: payload };
+    },
   },
 });
 
 export const { addMovies } = movieSlice.actions;
 export const getAllMovies = (state) => state.movies.movies;
+export const getAllShows= (state)=> state.movies.shows;
 export default movieSlice.reducer;
