@@ -1,3 +1,6 @@
+# Movie App
+A repository to practice redux and revise react concepts through a movie app project. This application uses omdb api to fetch details about movies. User could search movies and it's details
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
