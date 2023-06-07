@@ -14,9 +14,9 @@ function App() {
         <Header></Header>
         <div className="container">
           <Routes>
-            <Route path="/" exact Component={Home} />
-            <Route path="/movie/:imdbID" Component={MoveDetails} />
-            <Route path="*" Component={PageNotFound} />
+            <Route path={process.env.PUBLIC_URL} exact Component={Home} />
+            <Route path={process.env.PUBLIC_URL+"movie/:imdbID"} Component={MoveDetails} />
+            <Route path={process.env.PUBLIC_URL+"*"} Component={PageNotFound} />
           </Routes>
         </div>
         <Footer></Footer>
