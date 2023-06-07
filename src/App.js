@@ -8,10 +8,9 @@ import MoveDetails from "./components/MovieDetails/MovieDetails";
 import "./App.scss";
 
 function App() {
-
   return (
     <div className="App">
-      <Router basename="https://mohith-j.github.io/redux-practice/">
+      <Router>
         <Header></Header>
         <div className="container">
           <Routes>
